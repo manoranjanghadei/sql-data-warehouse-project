@@ -21,6 +21,11 @@ WARNING:
 USE master;
 
 -- Step 2: Check if 'DataWarehouse' already exists, if yes, drop it
+/*
+This section checks if 'DataWarehouse' exists in the server.
+If it exists, it forces all connections to close using SINGLE_USER mode, then drops the database.
+This ensures a clean slate before recreating the database.
+*/
 IF EXISTS (SELECT 1 FROM sys.databases WHERE name = 'DataWarehouse')
 BEGIN
     ALTER DATABASE DataWarehouse SET SINGLE_USER WITH ROLLBACK IMMEDIATE;  -- Force disconnect all sessions
